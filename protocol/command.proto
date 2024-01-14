@@ -1,0 +1,57 @@
+
+syntax = "proto3";
+
+option go_package = "dukonggs/protocol";
+option java_multiple_files = true;
+
+package protocol;
+
+// The greeting service definition.
+service DukongGS {
+  // Sends a greeting
+  rpc Login (LoginRequest) returns (stream CommandMessage) {}
+  rpc StartGame (StartGameRequest) returns (StartGameReply) {}
+  rpc StopGame (StopGameRequest) returns (StopGameReply) {}
+  rpc Chat (stream ChatMessage) returns (stream ChatMessage) {} 
+}
+
+// Login
+message LoginRequest {
+  string name = 1;
+}
+
+message CommandMessage {
+  string gameType = 1;
+  string session = 2;
+  string content = 3;
+}
+
+// StartGame
+message StartGameRequest {
+  string name = 1;
+  string gameType = 2;
+}
+
+message StartGameReply {
+  bool success = 1;
+  string session = 2;
+  string message = 3;
+}
+
+// StopGame
+message StopGameRequest {
+  string name = 1;
+  string gameType = 2;
+  string session = 3;
+  string content = 4;
+}
+
+message StopGameReply {
+  bool success = 1;
+  string message = 2;
+}
+
+message ChatMessage {
+  string name = 1;
+  string message = 2;
+}
